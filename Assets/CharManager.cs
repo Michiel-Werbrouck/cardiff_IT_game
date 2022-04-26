@@ -22,5 +22,11 @@ public class CharManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "Point")
+        {
+            Destroy(collision.gameObject);
+            Debug.Log("point collected!");
+        }
     }
 }
