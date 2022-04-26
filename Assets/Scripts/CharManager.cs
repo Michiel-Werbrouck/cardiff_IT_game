@@ -21,7 +21,7 @@ public class CharManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Spike")
         {
-            Destroy(gameObject);
+            gameManager.Lose();
         }
 
         if (collision.gameObject.tag == "Point")
