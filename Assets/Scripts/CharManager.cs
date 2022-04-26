@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CharManager : MonoBehaviour
 {
+    GManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = FindObjectOfType<GManager>();
     }
 
     // Update is called once per frame
@@ -26,7 +27,7 @@ public class CharManager : MonoBehaviour
         if (collision.gameObject.tag == "Point")
         {
             Destroy(collision.gameObject);
-            Debug.Log("point collected!");
+            gameManager.IncreaseScore();
         }
     }
 }
