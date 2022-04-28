@@ -9,27 +9,40 @@ public class CharManager : MonoBehaviour
 
     private Rigidbody2D rb;
     private GManager gameManager;
+    private Animator anim;
+    private SpriteRenderer sRenderer;
 
     void Start()
     {
         gameManager = FindObjectOfType<GManager>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        sRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
         if (gameManager.State == GameState.InProgress)
         {
+            anim.SetBool("isRunning", true);
+
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 rb.gravityScale = -gravityForce;
+                sRenderer.flipY = true;
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 rb.gravityScale = gravityForce;
+                sRenderer.flipY = false;
             }
-        }  
+        } 
+            
+        if (gameManager.State == GameState.Finished)
+        {
+            anim.SetBool("isRunning", false);
+        }
     }
 
     void FixedUpdate()
