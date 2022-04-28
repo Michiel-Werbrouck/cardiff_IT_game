@@ -35,7 +35,7 @@ public class GManager : MonoBehaviour
     {
         scoreText.text = "Score: " + score;
         
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && State == GameState.InMenu)
         {
             State = GameState.InProgress;
         }
