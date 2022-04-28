@@ -3,9 +3,18 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class GManager : MonoBehaviour
+public enum GameState
 {
+    InMenu,
+    InProgress,
+    Finished
+}
+
+public class GManager : MonoBehaviour
+{ 
     public TextMeshProUGUI scoreText, victoryText;
+
+    public GameState State;
 
     private GameObject player;
     private AudioManager audioManager;
@@ -13,20 +22,23 @@ public class GManager : MonoBehaviour
     private int score;
     private int amountOfCoins;
     
-    // Start is called before the first frame update
     void Start()
     {
+        State = GameState.InMenu;
         player = GameObject.FindGameObjectWithTag("Player");
         audioManager = FindObjectOfType<AudioManager>();
         victoryText.gameObject.SetActive(false);
         amountOfCoins = GameObject.FindGameObjectsWithTag("Point").Length;
-        Debug.Log(amountOfCoins);
     }
 
-    // Update is called once per frame
     void Update()
     {
         scoreText.text = "Score: " + score;
+        
+        if (Input.anyKeyDown)
+        {
+            State = GameState.InProgress;
+        }
     }
 
     public void IncreaseScore()
@@ -42,6 +54,7 @@ public class GManager : MonoBehaviour
 
     public void Lose()
     {
+        State = GameState.Finished;
         audioManager.PlayDeathSound();
         Destroy(player);
         StartCoroutine(RestartScene());
@@ -55,6 +68,7 @@ public class GManager : MonoBehaviour
 
     private void Win()
     {
+        State = GameState.Finished;
         audioManager.PlayVictorySound();
         victoryText.gameObject.SetActive(true);
         StartCoroutine(RestartScene());
