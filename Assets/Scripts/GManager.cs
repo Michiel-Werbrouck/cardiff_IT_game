@@ -15,6 +15,7 @@ public class GManager : MonoBehaviour
     public TextMeshProUGUI scoreText, victoryText;
 
     public GameState State;
+    public GameObject startHolder;
 
     private GameObject player;
     private AudioManager audioManager;
@@ -27,7 +28,10 @@ public class GManager : MonoBehaviour
         State = GameState.InMenu;
         player = GameObject.FindGameObjectWithTag("Player");
         audioManager = FindObjectOfType<AudioManager>();
+
         victoryText.gameObject.SetActive(false);
+        scoreText.gameObject.SetActive(false);
+
         amountOfCoins = GameObject.FindGameObjectsWithTag("Point").Length;
     }
 
@@ -38,6 +42,8 @@ public class GManager : MonoBehaviour
         if (Input.anyKeyDown && State == GameState.InMenu)
         {
             State = GameState.InProgress;
+            scoreText.gameObject.SetActive(true);
+            startHolder.gameObject.SetActive(false);
         }
     }
 

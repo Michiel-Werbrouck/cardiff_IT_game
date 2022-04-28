@@ -6,6 +6,7 @@ public class CharManager : MonoBehaviour
 {   
     public float movementSpeed = 10f;
     public float gravityForce = 2;
+    public GameObject deathParticles;
 
     private Rigidbody2D rb;
     private GManager gameManager;
@@ -58,6 +59,7 @@ public class CharManager : MonoBehaviour
         if (collision.gameObject.tag == "Spike")
         {
             gameManager.Lose();
+            Instantiate(deathParticles, transform.position, transform.rotation);
         }
 
         if (collision.gameObject.tag == "Point")
